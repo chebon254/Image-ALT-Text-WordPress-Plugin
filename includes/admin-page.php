@@ -32,6 +32,24 @@ foreach ($all_images as $image_id) {
 }
 
 $site_name = get_bloginfo('name');
+
+// Get current preview text based on format
+$current_format = get_option('iatp_alt_text_format', 'sitename');
+$preview_text = $site_name;
+
+switch ($current_format) {
+    case 'sitename':
+        $preview_text = $site_name;
+        break;
+    case 'sitename_filename':
+        $preview_text = $site_name . ' - Example Image';
+        break;
+    case 'custom':
+        $preview_text = get_option('iatp_custom_alt_text', $site_name);
+        break;
+    default:
+        $preview_text = $site_name;
+}
 ?>
 
 <div class="wrap iatp-admin-wrap">
@@ -64,7 +82,7 @@ $site_name = get_bloginfo('name');
             
             <div class="iatp-preview">
                 <strong><?php echo esc_html__('Preview Alt Text:', 'image-alt-populator'); ?></strong>
-                <code id="iatp-alt-preview"><?php echo esc_html($site_name); ?></code>
+                <code id="iatp-alt-preview"><?php echo esc_html($preview_text); ?></code>
             </div>
             
             <div class="iatp-progress-container" id="iatp-progress-container" style="display: none;">
@@ -156,7 +174,7 @@ $site_name = get_bloginfo('name');
                             </td>
                         </tr>
                         
-                        <tr id="iatp_custom_alt_text_row" style="display: none;">
+                        <tr id="iatp_custom_alt_text_row" style="display: <?php echo ($current_format === 'custom') ? 'table-row' : 'none'; ?>;">
                             <th scope="row">
                                 <label for="iatp_custom_alt_text">
                                     <?php echo esc_html__('Custom Alt Text', 'image-alt-populator'); ?>

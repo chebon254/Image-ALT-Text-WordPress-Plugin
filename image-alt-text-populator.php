@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('IATP_VERSION', '1.0.0');
+define('IATP_VERSION', '1.0.2');
 define('IATP_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('IATP_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('IATP_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -107,6 +107,12 @@ class Image_Alt_Text_Populator {
             'default' => 'sitename',
             'sanitize_callback' => 'sanitize_text_field'
         ]);
+        
+        register_setting('iatp_settings_group', 'iatp_custom_alt_text', [
+            'type' => 'string',
+            'default' => get_bloginfo('name'),
+            'sanitize_callback' => 'sanitize_text_field'
+        ]);
     }
     
     /**
@@ -135,6 +141,8 @@ class Image_Alt_Text_Populator {
         wp_localize_script('iatp-admin-js', 'iatpData', [
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('iatp_nonce'),
+            'siteName' => get_bloginfo('name'),
+            'customAltText' => get_option('iatp_custom_alt_text', get_bloginfo('name')),
             'strings' => [
                 'processing' => __('Processing...', 'image-alt-populator'),
                 'complete' => __('Complete!', 'image-alt-populator'),

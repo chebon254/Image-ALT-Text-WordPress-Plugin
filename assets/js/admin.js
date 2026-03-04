@@ -17,10 +17,19 @@
         $('#iatp-bulk-update').on('click', handleBulkUpdate);
         
         // Handle alt text format change
-        $('#iatp_alt_text_format').on('change', toggleCustomTextField);
+        $('#iatp_alt_text_format').on('change', function() {
+            toggleCustomTextField();
+            updatePreview();
+        });
+        
+        // Handle custom text input
+        $('#iatp_custom_alt_text').on('input', updatePreview);
         
         // Initialize custom text field visibility
         toggleCustomTextField();
+        
+        // Initialize preview
+        updatePreview();
         
         // Refresh stats button (if needed)
         refreshStats();
@@ -38,6 +47,34 @@
         } else {
             customRow.hide();
         }
+    }
+
+    /**
+     * Update preview based on selected format
+     */
+    function updatePreview() {
+        const format = $('#iatp_alt_text_format').val();
+        let previewText = '';
+        
+        switch (format) {
+            case 'sitename':
+                previewText = iatpData.siteName;
+                break;
+            
+            case 'sitename_filename':
+                previewText = iatpData.siteName + ' - Example Image';
+                break;
+            
+            case 'custom':
+                const customText = $('#iatp_custom_alt_text').val().trim();
+                previewText = customText || iatpData.siteName;
+                break;
+            
+            default:
+                previewText = iatpData.siteName;
+        }
+        
+        $('#iatp-alt-preview').text(previewText);
     }
 
     /**
