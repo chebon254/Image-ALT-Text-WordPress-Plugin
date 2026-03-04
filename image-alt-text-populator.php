@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: Image Alt Text Populator
- * Plugin URI: https://github.com/yourusername/image-alt-text-populator
+ * Plugin URI: https://github.com/chebon254/Image-ALT-Text-WordPress-Plugin
  * Description: Automatically populates all images with website name as alt text. Includes bulk update for existing images and automatic alt text for new uploads.
- * Version: 1.0.0
+ * Version: 1.0.2
  * Requires at least: 6.0
  * Requires PHP: 8.0
- * Author: Your Name
- * Author URI: https://yourwebsite.com
+ * Author: Kelvin Chebon
+ * Author URI: https://chebonkelvin.com
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: image-alt-populator
