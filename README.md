@@ -1,14 +1,17 @@
 # Image Alt Text Populator
 
-A professional WordPress plugin that automatically populates all images with your website name as alt text. Built with modern PHP 8.0+ and WordPress 6.0+ best practices.
+A professional WordPress plugin that automatically populates image alt text for SEO — including **all WooCommerce product images** (featured + gallery) — using the image/product title plus your website name. Built with modern PHP 8.0+ and WordPress 6.0+ best practices.
 
 ## Features
 
+- ✅ **Title + Site Name format (SEO)** - Alt text like `Product Name - My Website`, built from the product/page/image title and your site name
+- ✅ **Full product image coverage** - Featured images and gallery images of every WooCommerce product, even images not "attached" to the product
 - ✅ **Auto-populate new uploads** - Automatically adds alt text to newly uploaded images
+- ✅ **Auto-populate on product save** - Product images get SEO alt text whenever a product is saved
 - ✅ **Bulk update existing images** - Process all existing images in your media library
-- ✅ **Multiple alt text formats** - Choose from Site Name, Site Name + Filename, or Custom Text
+- ✅ **Multiple alt text formats** - Title + Site Name, Site Name, Site Name + Filename, or Custom Text with `{title}`, `{site}` and `{filename}` placeholders
 - ✅ **Smart overwrite options** - Choose whether to overwrite existing alt text or only update empty ones
-- ✅ **Real-time statistics** - See how many images have alt text at a glance
+- ✅ **Real-time statistics** - See how many images have alt text at a glance, plus a product-image count
 - ✅ **Progress tracking** - Visual progress bar during bulk updates
 - ✅ **Batch processing** - Efficiently handles thousands of images
 - ✅ **Modern UI** - Clean, intuitive admin interface
@@ -54,16 +57,22 @@ Enable this to automatically add alt text to all newly uploaded images.
 
 #### Alt Text Formats
 
-1. **Site Name Only**
+1. **Title + Site Name (recommended for SEO)**
+   - Example: `"Blue Running Shoes - My Awesome Website"`
+   - The title is resolved in this order: the WooCommerce product using the image (featured or gallery) → the post/page the image is attached to → the image's own title → a cleaned-up filename
+   - Best for: SEO — descriptive, keyword-rich alt text for every product image
+
+2. **Site Name Only**
    - Example: `"My Awesome Website"`
    - Best for: Simple, consistent alt text
 
-2. **Site Name + File Name**
+3. **Site Name + File Name**
    - Example: `"My Awesome Website - Product Photo"`
    - Best for: More descriptive alt text that includes file context
 
-3. **Custom Text**
-   - Example: Your custom text
+4. **Custom Text**
+   - Example: `"{title} | {site}"` → `"Blue Running Shoes | My Awesome Website"`
+   - Supports `{title}`, `{site}` and `{filename}` placeholders
    - Best for: Specific branding requirements
 
 ### Bulk Update
@@ -166,6 +175,14 @@ No. The plugin only runs when processing images or uploading new ones. It has no
 For issues, questions, or feature requests, please create an issue on the GitHub repository.
 
 ## Changelog
+
+### Version 2.0.0
+- New default "Title + Site Name" alt text format for SEO
+- Full WooCommerce product image coverage: featured images and gallery images, including images not attached to the product
+- Product images are (re)populated automatically when a product is saved
+- Custom text format now supports `{title}`, `{site}` and `{filename}` placeholders
+- Statistics now use direct SQL counts (fast on large media libraries) and show a product-image count
+- Live preview updated for the new format and placeholders
 
 ### Version 1.0.0
 - Initial release

@@ -57,19 +57,26 @@
         let previewText = '';
         
         switch (format) {
+            case 'title_sitename':
+                previewText = 'Example Product - ' + iatpData.siteName;
+                break;
+
             case 'sitename':
                 previewText = iatpData.siteName;
                 break;
-            
+
             case 'sitename_filename':
                 previewText = iatpData.siteName + ' - Example Image';
                 break;
-            
+
             case 'custom':
                 const customText = $('#iatp_custom_alt_text').val().trim();
-                previewText = customText || iatpData.siteName;
+                previewText = (customText || iatpData.siteName)
+                    .replace(/\{title\}/g, 'Example Product')
+                    .replace(/\{site\}/g, iatpData.siteName)
+                    .replace(/\{filename\}/g, 'example-image');
                 break;
-            
+
             default:
                 previewText = iatpData.siteName;
         }
@@ -93,6 +100,9 @@
                     $('#iatp-total-images').text(response.data.total);
                     $('#iatp-with-alt').text(response.data.withAlt);
                     $('#iatp-without-alt').text(response.data.withoutAlt);
+                    if (typeof response.data.productImages !== 'undefined') {
+                        $('#iatp-product-images').text(response.data.productImages);
+                    }
                 }
             }
         });
